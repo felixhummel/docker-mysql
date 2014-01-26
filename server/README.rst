@@ -1,9 +1,9 @@
 # build
-docker build -t mysql_server .
+docker build -t mysqlserver .
 # run
-docker run -d -name mysql_test -expose 3306 mysql_server mysqld
+docker run -d -name mysql_testserver mysqlserver
 # test (give the server some time to start)
-docker run -t -i -link mysql_test:x mysqlclient bash -c 'mysql -uchangeme -pchangeme -h$X_PORT_3306_TCP_ADDR -e "select 23 as id from dual"'
+docker run -name mysql_testclient -t -i -link mysql_testserver:x mysqlclient bash -c 'mysql -uchangeme -pchangeme -h$X_PORT_3306_TCP_ADDR -e "select 23 as id from dual"'
 # cleanup
-docker stop mysql_test && docker rm mysql_test
+docker rm mysql_testclient && docker kill mysql_testserver && docker rm mysql_testserver
 
