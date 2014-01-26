@@ -1,2 +1,2 @@
-docker build -t mysql_client .
+docker build -t mysqlclient .
 
