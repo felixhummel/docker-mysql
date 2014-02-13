@@ -2,13 +2,28 @@ Docker Mysql
 ============
 Simple Docker mysql server and mysql client.
 
-Proof of concept.
+Building
+--------
+The Client::
 
-For details see ``server/README.rst``.
+    docker build -t mysqlclient client/
 
-TODO
-----
-Just found something that looks a lot simpler: http://linsenraum.de/erkules_int/2014/01/using-mysql-with-docker.html
+The Server::
 
-Need to try this.
+    docker build -t mysqlserver .
+
+Testing
+-------
+Start the server, and wait for it::
+
+    docker run -d -name mysql_testserver mysqlserver
+
+Run the client::
+
+    docker run -name mysql_testclient -t -i -link mysql_testserver:x mysqlclient bash -c 'mysql -uchangeme -pchangeme -h$X_PORT_3306_TCP_ADDR -e "select 23 as id from dual"'
+
+Clean up::
+
+    docker rm mysql_testclient && docker kill mysql_testserver && docker rm mysql_testserver
+
 
