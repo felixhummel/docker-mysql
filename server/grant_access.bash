@@ -7,7 +7,7 @@ password=changeme
 # and then flush to make the changes take effect
 mysqld --bootstrap<<EOF
 flush privileges;
-grant all on *.* to '$username'@'%' identified by '$password';
+grant all on *.* to '$username'@'%' identified by '$password' with grant option;
 flush privileges;
 EOF
 exit 0
