@@ -24,5 +24,5 @@ Run the client (and remove it afterwards)::
 
 Clean up::
 
-    docker kill mysql_testserver && docker rm mysql_testserver
+    docker rm --force mysql_testserver
 
